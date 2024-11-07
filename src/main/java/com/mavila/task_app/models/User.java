@@ -1,10 +1,17 @@
 package com.mavila.task_app.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -13,6 +20,14 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = User.TableName)
 public class User {
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
 
     public interface ICreateUser{}
 
@@ -31,13 +46,16 @@ public class User {
      @Size(min = 2,max = 100,groups=ICreateUser.class)
      private String username;
 
+     @JsonProperty(access = Access.WRITE_ONLY)
      @Column(name = "password",nullable = false,length = 60)
      @NotNull(groups= {ICreateUser.class,IUpdateUser.class})
      @NotEmpty(groups=  {ICreateUser.class,IUpdateUser.class})
      @Size(min = 8,max = 60,groups= {ICreateUser.class,IUpdateUser.class})
      private String password;
 
-     //private List<Task> tasks = new ArrayList<Task>();
+    @SuppressWarnings("Convert2Diamond")
+    @OneToMany(mappedBy = "user")
+     private List<Task> tasks = new ArrayList<Task>();
 
      //constructor
       public User(Long id, String username, String password) {
