@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mavila.task_app.models.User;
-import com.mavila.task_app.repositories.TaskRepository;
 import com.mavila.task_app.repositories.UserRepository;
 @Service
 public class UserService {
@@ -14,8 +13,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private TaskRepository taskRepository;
     
 
     /* 
@@ -35,7 +32,7 @@ public class UserService {
     public User createUser(User obj){
         //obj.setId(id:null);
         obj = this.userRepository.save(obj);
-        this.taskRepository.saveAll(obj.getTasks());
+        
         return obj;
     }
 
