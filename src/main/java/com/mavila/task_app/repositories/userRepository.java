@@ -6,4 +6,4 @@ import org.springframework.stereotype.Repository;
 import com.mavila.task_app.models.User;
 
 @Repository
-public interface userRepository extends JpaRepository<User, Long>{}
+public interface UserRepository extends JpaRepository<User, Long>{}
