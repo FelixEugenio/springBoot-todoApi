@@ -13,8 +13,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    
-
     /* 
     public UserService(UserRepository userRepository, TaskRepository taskRepository) {
         this.userRepository = userRepository;
@@ -29,7 +27,7 @@ public class UserService {
     }
 
     @Transactional
-    public User createUser(User obj){
+    public User create(User obj){
         //obj.setId(id:null);
         obj = this.userRepository.save(obj);
         
@@ -37,13 +35,13 @@ public class UserService {
     }
 
     @Transactional
-    public User updateUser(User obj){
+    public User update(User obj){
         User newObj = this.findById(obj.getId());
         newObj.setPassword(obj.getPassword());
         return this.userRepository.save(newObj);
     }
 
-    public void deleteUser(Long id){
+    public void delete(Long id){
         findById(id);
         try{
             this.userRepository.deleteById(id);
