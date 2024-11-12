@@ -1,5 +1,6 @@
 package com.mavila.task_app.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,7 @@ public class TaskService {
         return this.taskRepository.save(newObj);
     }
 
+    @Transactional
     public void deleteTask(Long id) {
         this.findById(id);
         try{
@@ -46,5 +48,10 @@ public class TaskService {
         }catch(Exception e){
             throw new RuntimeException("Task not found! Id: " + id + " Tipo: " + Task.class.getName());
         }
+    }
+
+    public List<Task> findByUser_Id(Long id) {
+        List<Task> tasks = this.taskRepository.findByUser_Id(id);
+        return tasks;
     }
 }
